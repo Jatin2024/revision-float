@@ -1,106 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?> <!doctype html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:widget="http://www.netvibes.com/ns/"><head><meta charset="utf-8"/><link rel="icon" href="/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/logo192.png"/><link rel="manifest" href="/manifest.json"/><title></title><script defer="defer" src="./static/js/main.adbe18a1.js"></script><link href=".import React from "react";
-  import { useSelector } from "react-redux";
-  import DragAndDropComponent from "../components/DragAndDrop/DragAndDrop";
-  import CardComponent from "../components/Card/Card";
-  import Table from "../components/Table/Table";
-  import { Image } from "react-bootstrap";
-  
-  const RevisionFloat = () => {
-    // Access Redux store
-    const droppedObjectData = useSelector(
-      (state) => state.droppedObject.droppedObjectData
-    );
-  
-    console.log("droppedObjectData", droppedObjectData);
-  
-    // Process table data
-    const tableData = React.useMemo(() => {
-      if (!droppedObjectData || !droppedObjectData.parentDetails) return [];
-      return droppedObjectData.parentDetails.map((parent) => ({
-        EIN:
-          parent.parentMetadata?.["dseng:EnterpriseReference"]?.partNumber ||
-          "N/A",
-        Title: parent.parentMetadata?.title || "N/A",
-        Description: parent.parentMetadata?.description || "N/A",
-        Type: parent.parentMetadata?.type || "N/A",
-        Revision: parent.parentMetadata?.revision || "N/A",
-        "Connected Child Revision": parent.connectedChildRevision || "N/A",
-        "Latest child connected": "N/A", // Placeholder for additional logic
-        "To-Be child connected": "N/A", // Placeholder for additional logic
-        State: parent.parentMetadata?.state || "N/A",
-        Owner: parent.parentMetadata?.owner || "N/A",
-        "CAD Format": "3DExperience", // Static value
-        Collabspace: parent.parentMetadata?.collabspace || "N/A",
-      }));
-    }, [droppedObjectData]);
-  
-    // Process card data
-    const cardData = React.useMemo(() => {
-      if (!droppedObjectData || !droppedObjectData.draggedData?.member?.[0])
-        return null;
-      const item = droppedObjectData.draggedData.member[0];
-      return {
-        title: item.title || "N/A",
-        type: item.type || "N/A",
-        revision: item.revision || "N/A",
-        maturityState: item.state || "N/A",
-        owner: item.owner || "N/A",
-        collabspace: item.collabspace || "N/A",
-        enterpriseItemNumber:
-          item["dseng:EnterpriseReference"]?.partNumber || "N/A",
-        cadFormat: "3DExperience", // Static value
-        description: item.description || "No Description Available",
-      };
-    }, [droppedObjectData]);
-  
-    // Define columns for the table
-    const columns = React.useMemo(
-      () => [
-        { accessorKey: "EIN", header: "EIN" },
-        { accessorKey: "Title", header: "Title" },
-        { accessorKey: "Description", header: "Description" },
-        { accessorKey: "Type", header: "Type" },
-        { accessorKey: "Revision", header: "Revision" },
-        {
-          accessorKey: "Connected Child Revision",
-          header: "Connected Child Revision",
-        },
-        {
-          accessorKey: "Latest child connected",
-          header: "Latest child connected",
-        },
-        { accessorKey: "To-Be child connected", header: "To-Be child connected" },
-        { accessorKey: "State", header: "State" },
-        { accessorKey: "Owner", header: "Owner" },
-        { accessorKey: "CAD Format", header: "CAD Format" },
-        { accessorKey: "Collabspace", header: "Collabspace" },
-      ],
-      []
-    );
-  
-    return (
-      <>
-        {/* Conditionally show DragAndDropComponent */}
-        {(!droppedObjectData.draggedData ||
-          !droppedObjectData.draggedData.member?.[0]?.id) && (
-          <DragAndDropComponent />
-        )}
-        <div className="content-wrapper p-4 mt-3">
-          <div className="me-2 p-0 home-icon" style={{ height: "30px" }}>
-            <Image
-              src="https://thewhitechamaleon.github.io/testrapp/images/home.png"
-              alt="home-icon"
-              className="search-icon"
-            />
-          </div>
-          {/* Display cards only if there is data */}
-          {cardData && <CardComponent data={cardData} />}
-          {/* Display table only if there is data */}
-          {tableData.length > 0 && <Table data={tableData} columns={columns} />}
-        </div>
-      </>
-    );
-  };
-  
-  export default RevisionFloat;
-  /static/css/main.307b4def.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:widget="http://www.netvibes.com/ns/"
+>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <title></title>
+    <script defer="defer" src="./static/js/main.adbe18a1.js"></script>
+    <link href="./static/css/main.307b4def.css" rel="stylesheet" />
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
